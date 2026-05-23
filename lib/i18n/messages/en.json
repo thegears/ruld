@@ -1,0 +1,10 @@
+{
+  "home": {
+    "title": "Ruld",
+    "subtitle": "Settle your arguments with AI",
+    "createRoom": "Create a room",
+    "inviteFriend": "Invite your friend",
+    "argueWithFriend": "Make your case",
+    "aiVerdicts": "AI gives verdict"
+  }
+}
