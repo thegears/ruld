@@ -1,10 +1,15 @@
 {
   "home": {
-    "title": "Ruld",
-    "subtitle": "Settle your arguments with AI",
+    "title": "Who's Ruld?",
+    "subtitle": "Stop arguing in circles. Make your case, let AI decide.",
     "createRoom": "Create a room",
     "inviteFriend": "Invite your friend",
     "argueWithFriend": "Make your case",
-    "aiVerdicts": "AI gives verdict"
+    "aiVerdicts": "AI gives verdict!",
+    "startDebate": "Start a Debate",
+    "createRoomTitle": "Create a Room",
+    "whatIsTheArgueAbout": "What is the argue about?",
+    "whatIsYourName": "What is your name?",
+    "start": "Start"
   }
 }

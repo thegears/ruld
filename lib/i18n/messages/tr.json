@@ -1,10 +1,15 @@
 {
   "home": {
-    "title": "Ruld",
-    "subtitle": "Tartışmalarını AI ile çöz",
+    "title": "Kim Haklı?",
+    "subtitle": "Tartışmayı buraya taşı. Argümanınızı sunun, bırakın AI karar versin.",
     "createRoom": "Oda oluştur",
     "inviteFriend": "Arkadaşını davet et",
-    "argueWithFriend": "Arkadaşınla tartış",
-    "aiVerdicts": "AI karar versin!"
+    "argueWithFriend": "Argümanını sun",
+    "aiVerdicts": "AI karar versin!",
+    "startDebate": "Tartışmayı Başlat",
+    "createRoomTitle": "Oda Oluştur",
+    "whatIsTheArgueAbout": "Tartışma konusu nedir?",
+    "whatIsYourName": "Adınız nedir?",
+    "start": "Başlat"
   }
 }
