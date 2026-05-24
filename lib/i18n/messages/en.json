@@ -10,6 +10,14 @@
     "createRoomTitle": "Create a Room",
     "whatIsTheArgueAbout": "What is the argue about?",
     "whatIsYourName": "What is your name?",
-    "start": "Start"
+    "start": "Start",
+    "topicIsRequired": "Topic is required",
+    "nameIsRequired": "Name is required",
+    "failedToCreateRoom": "Failed to create room. Try again later."
+  },
+
+  "notFound": {
+    "notFound": "This page doesn't exist",
+    "home": "Home"
   }
 }

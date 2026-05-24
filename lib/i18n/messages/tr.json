@@ -10,6 +10,13 @@
     "createRoomTitle": "Oda Oluştur",
     "whatIsTheArgueAbout": "Tartışma konusu nedir?",
     "whatIsYourName": "Adınız nedir?",
-    "start": "Başlat"
+    "start": "Başlat",
+    "topicIsRequired": "Bir konu girmeniz gerekli",
+    "nameIsRequired": "Bir isim girmeniz gerekli",
+    "failedToCreateRoom": "Odayı oluştururken bir sorun yaşandı. Daha sonra tekrar deneyin."
+  },
+  "notFound": {
+    "notFound": "Böyle bir sayfa bulunamadı",
+    "home": "Ana sayfa"
   }
 }
