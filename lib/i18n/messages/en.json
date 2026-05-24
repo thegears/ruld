@@ -13,7 +13,8 @@
     "start": "Start",
     "topicIsRequired": "Topic is required",
     "nameIsRequired": "Name is required",
-    "failedToCreateRoom": "Failed to create room. Try again later."
+    "failedToCreateRoom": "Failed to create room. Try again later.",
+    "cookieConsent": "We use cookies to improve your experience. By using our site, you consent to cookies."
   },
 
   "notFound": {

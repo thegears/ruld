@@ -48,7 +48,7 @@ export default function Main({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [playerB, room.id]);
+  }, [room.id]);
 
   // Oyuncu B henüz katılmamışsa ve kullanıcı A ise, bekleme ekranını göster
   if (!playerB && userId == room.player_a_id) return <Waiting url={url} />;

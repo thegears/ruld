@@ -16,7 +16,7 @@ export default function Waiting({ url }: { url: string }) {
       setDots((prev) => (prev === 3 ? 0 : prev + 1));
     }, 500);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   return (
     <main className="min-h-screen   bg-[#0a0a0f] relative overflow-hidden  flex flex-col items-center justify-center gap-8 p-8">

@@ -13,7 +13,8 @@
     "start": "Başlat",
     "topicIsRequired": "Bir konu girmeniz gerekli",
     "nameIsRequired": "Bir isim girmeniz gerekli",
-    "failedToCreateRoom": "Odayı oluştururken bir sorun yaşandı. Daha sonra tekrar deneyin."
+    "failedToCreateRoom": "Odayı oluştururken bir sorun yaşandı. Daha sonra tekrar deneyin.",
+    "cookieConsent": "Deneyiminizi geliştirmek için çerezler kullanıyoruz. Sitemizi kullanarak çerezleri kabul etmiş olursunuz."
   },
   "notFound": {
     "notFound": "Böyle bir sayfa bulunamadı",

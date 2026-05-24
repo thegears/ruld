@@ -21,6 +21,7 @@ import { createRoom } from "../actions/room";
 const nunito = Nunito({ subsets: ["latin"] });
 
 export default function HomePage() {
+  const t = useTranslations("home");
   return (
     <main className="min-h-screen bg-[#0a0a0f] relative overflow-hidden  flex flex-col items-center justify-center gap-8 p-8">
       <BackgroundOrbs />
@@ -28,6 +29,7 @@ export default function HomePage() {
       <CTAButton />
       <StepsComponent />
       <ChangeLanguageComponent />
+      <span className="text-gray-500 text-xs">{t("cookieConsent")}</span>
     </main>
   );
 }
