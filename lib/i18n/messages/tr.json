@@ -18,5 +18,9 @@
   "notFound": {
     "notFound": "Böyle bir sayfa bulunamadı",
     "home": "Ana sayfa"
+  },
+  "waiting": {
+    "waitingForFriend": "Arkadaşınız bekleniyor",
+    "inviteYourFriend": "Arkadaşını aşağıdaki link ile davet et"
   }
 }

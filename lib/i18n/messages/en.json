@@ -19,5 +19,10 @@
   "notFound": {
     "notFound": "This page doesn't exist",
     "home": "Home"
+  },
+
+  "waiting": {
+    "waitingForFriend": "Waiting for your friend",
+    "inviteYourFriend": "Arkadaşını aşağıdaki link ile davet et"
   }
 }
