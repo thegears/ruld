@@ -11,24 +11,11 @@ const createRoomSchema = z.object({
   name: z.string().min(1, "nameIsRequired"),
 });
 
-async function getUserIdFromCookie() {
-  const cookieStore = await cookies();
-  let userId = cookieStore.get("ruld_user_id")?.value;
+const joinRoomSchema = z.object({
+  name: z.string().min(1, "nameIsRequired"),
+});
 
-  if (!userId) {
-    userId = crypto.randomUUID();
-    cookieStore.set("ruld_user_id", userId, {
-      httpOnly: true,
-      secure: true,
-      maxAge: 60 * 60 * 24 * 365,
-      path: "/",
-    });
-  }
-
-  return userId;
-}
-
-export async function createRoom(prevState: unknown, formData: FormData) {
+export async function createRoom(_: unknown, formData: FormData) {
   const topic = formData.get("topic") as string;
   const name = formData.get("name") as string;
 
@@ -36,7 +23,8 @@ export async function createRoom(prevState: unknown, formData: FormData) {
 
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
-  const userId = await getUserIdFromCookie();
+  const cookieStore = await cookies();
+  const userId = cookieStore.get("ruld_user_id")?.value;
 
   const { data, error } = await supabase
     .from("rooms")
@@ -65,4 +53,27 @@ export async function getRoom(roomId: string) {
 
   if (error) return { error: "failedToGetRoom" };
   return { data };
+}
+
+export async function joinRoom(_: unknown, formData: FormData) {
+  const name = formData.get("name") as string;
+  const userId = formData.get("userId") as string;
+  const roomId = formData.get("roomId") as string;
+
+  const parsed = joinRoomSchema.safeParse({ name });
+
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  const { error } = await supabase
+    .from("rooms")
+    .update({ player_b_id: userId, player_b_name: name })
+    .eq("id", roomId)
+    .select()
+    .maybeSingle();
+
+  if (error) {
+    return { error: "failedToJoinRoom" };
+  }
+
+  return { success: true };
 }

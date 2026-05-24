@@ -1,7 +1,10 @@
+"use server";
+
 import { getRoom } from "@/app/actions/room";
-import Waiting from "@/components/room/waiting";
 import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
+import Main from "@/components/room/main";
 
 export default async function RoomPage({
   params,
@@ -14,9 +17,11 @@ export default async function RoomPage({
   const locale = await getLocale();
 
   if (room.error) return notFound();
+
+  const cookieStore = await cookies();
+  const userId = cookieStore.get("ruld_user_id")?.value;
+
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/room/${id}`;
 
-  if (!room.data.player_b_id) return <Waiting url={url} />;
-
-  return <>selam</>;
+  return <Main userId={userId} url={url} room={room.data} />;
 }

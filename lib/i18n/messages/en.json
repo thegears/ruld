@@ -24,5 +24,14 @@
   "waiting": {
     "waitingForFriend": "Waiting for your friend",
     "inviteYourFriend": "Arkadaşını aşağıdaki link ile davet et"
+  },
+  "join": {
+    "invitedYou": ", invited you to a debate",
+    "topic": "Topic of the debate",
+    "joinRoom": "Join Room",
+    "whatIsYourName": "What is your name?",
+    "join": "Join",
+    "nameIsRequired": "Name is required",
+    "failedToJoinRoom": "Failed to join room. Try again later."
   }
 }

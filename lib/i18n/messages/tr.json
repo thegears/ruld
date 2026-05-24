@@ -22,5 +22,15 @@
   "waiting": {
     "waitingForFriend": "Arkadaşınız bekleniyor",
     "inviteYourFriend": "Arkadaşını aşağıdaki link ile davet et"
+  },
+
+  "join": {
+    "invitedYou": ", sizi bir tartışmaya davet etti",
+    "topic": "Tartışma konusu",
+    "joinRoom": "Odaya Katıl",
+    "whatIsYourName": "Adınız nedir?",
+    "join": "Katıl",
+    "nameIsRequired": "Bir isim girmeniz gerekli",
+    "failedToJoinRoom": "Odaya katılırken bir sorun oluşturdu. Sonra tekrar deneyin."
   }
 }
