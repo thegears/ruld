@@ -38,5 +38,17 @@
     "debateIsStarting": "Tartışma başlıyor!",
     "roundCount": "Bu tartışma konusu için AI'ın verdiği tur sayısı :",
     "willBeStartedAfter": "Tartışma başlayacak "
+  },
+  "debate": {
+    "topic": "Konu",
+    "round": "Tur",
+    "yourTurn": "Sıra sizde",
+    "opponentTurn": "Rakibinizin sırası",
+    "waitingForVerdict": "AI kararını veriyor...",
+    "waitingForOpponent": "Rakibiniz bekleniyor...",
+    "writeYourArgument": "Argümanınızı buraya yazın...",
+    "you": "Siz",
+    "aiFirstMessageA": " İlk argümanınızı sunun.",
+    "aiFirstMessageB": "Rakibiniz bekleniyor..."
   }
 }

@@ -39,5 +39,17 @@
     "debateIsStarting": "Debate is starting!",
     "roundCount": "The number of rounds AI has given for this debate topic :",
     "willBeStartedAfter": " Debate will be started after "
+  },
+  "debate": {
+    "topic": "Topic",
+    "round": "Round",
+    "yourTurn": "Your turn",
+    "opponentTurn": "Opponent's turn",
+    "waitingForVerdict": "AI is giving its verdict...",
+    "waitingForOpponent": "Waiting for opponent...",
+    "writeYourArgument": "Write your argument here...",
+    "you": "You",
+    "aiFirstMessageA": " Present your first argument.",
+    "aiFirstMessageB": "Waiting for opponent..."
   }
 }

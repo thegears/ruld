@@ -34,9 +34,9 @@ export default function Join({
   useEffect(() => {
     if (state?.success) {
       setPlayerB(userId);
-      setMaxRounds(state?.maxRounds);
+      setMaxRounds(state?.maxRounds as number);
     }
-  }, [state, userId, setPlayerB, setMaxRounds]);
+  }, []);
 
   return (
     <main className="min-h-screen   bg-[#0a0a0f] relative overflow-hidden  flex flex-col items-center justify-center gap-8 p-8">

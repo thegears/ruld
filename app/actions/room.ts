@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase/client";
 import { redirect } from "@/lib/i18n/routing";
 import { getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
-import { getRoundCount } from "./ai";
+import { getAIResponse, getRoundCount } from "./ai";
 
 const createRoomSchema = z.object({
   topic: z.string().min(1, "topicIsRequired"),
@@ -14,6 +14,12 @@ const createRoomSchema = z.object({
 
 const joinRoomSchema = z.object({
   name: z.string().min(1, "nameIsRequired"),
+});
+
+const sendMessageSchema = z.object({
+  content: z.string().min(1, "contentIsRequired"),
+  side: z.enum(["A", "B"]),
+  roomId: z.string().uuid(),
 });
 
 export async function createRoom(_: unknown, formData: FormData) {
@@ -48,11 +54,12 @@ export async function createRoom(_: unknown, formData: FormData) {
 export async function getRoom(roomId: string) {
   const { data, error } = await supabase
     .from("rooms")
-    .select()
+    .select("*, messages(*)")
     .eq("id", roomId)
     .single();
 
   if (error) return { error: "failedToGetRoom" };
+
   return { data };
 }
 
@@ -94,4 +101,35 @@ export async function startDebate(roomId: string) {
     .eq("id", roomId)
     .select()
     .maybeSingle();
+}
+
+export async function sendMessage(_: unknown, formData: FormData) {
+  const content = formData.get("content") as string;
+  const side = formData.get("side") as string;
+  const roomId = formData.get("roomId") as string;
+  const topic = formData.get("topic") as string;
+
+  const parsed = sendMessageSchema.safeParse({ content, side, roomId });
+
+  if (!parsed.success) return { error: parsed.error.errors[0].message };
+
+  await supabase.from("messages").insert({ content, side, room_id: roomId });
+
+  const aiResponse = await getAIResponse({ topic, content });
+
+  await supabase.from("messages").insert({
+    content: aiResponse,
+    side: "AI",
+    room_id: roomId,
+    target: side == "A" ? "B" : "A",
+  });
+
+  await supabase
+    .from("rooms")
+    .update({
+      current_turn: side == "A" ? "B" : "A",
+    })
+    .eq("id", roomId);
+
+  return { success: true };
 }

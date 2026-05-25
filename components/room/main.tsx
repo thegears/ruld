@@ -9,6 +9,16 @@ import { notFound } from "next/navigation";
 import DebateIntro from "./debate-intro";
 import { startDebate } from "@/app/actions/room";
 
+export type Message = {
+  id?: string;
+  room_id?: string;
+  side: "A" | "B" | "AI";
+  content: string;
+  turn_number?: number;
+  created_at?: string;
+  target: string;
+};
+
 export default function Main({
   userId,
   url,
@@ -25,16 +35,19 @@ export default function Main({
     topic: string;
     status: "debate" | "intro";
     max_rounds: number;
+    messages: Message[];
+    current_turn: "A" | "B";
   };
 }) {
   const [playerB, setPlayerB] = useState(room.player_b_id);
   const [debatePhase, setDebatePhase] = useState<"debate" | "intro">(
-    room.status,
+    room.status != "debate" ? "intro" : room.status,
   );
   const [maxRounds, setMaxRounds] = useState<string>(
     room.max_rounds ? `${room.max_rounds}` : "?",
   );
 
+  // Oyuncu B ve maxRounds listener
   useEffect(() => {
     if (room.player_b_id) return;
     const channel = supabase
@@ -63,9 +76,7 @@ export default function Main({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [room.id, room.player_b_id]);
-
-  console.log(room);
+  }, []);
 
   // Oyuncu B henüz katılmamışsa ve kullanıcı A ise, bekleme ekranını göster
   if (!playerB && userId == room.player_a_id) return <Waiting url={url} />;
@@ -95,7 +106,17 @@ export default function Main({
           roundCount={maxRounds!}
         />
       );
-    else return <Debate />;
+    else
+      return (
+        <Debate
+          topic={room.topic}
+          playerSide={userId === room.player_a_id ? "A" : "B"}
+          maxRounds={maxRounds}
+          InitialMessages={room.messages}
+          roomId={room.id}
+          currentTurn={room.current_turn}
+        />
+      );
   }
 
   // Kullanıcı odanın bir parçası değilse, 404 sayfasını göster
