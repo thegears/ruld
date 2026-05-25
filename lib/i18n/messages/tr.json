@@ -33,5 +33,10 @@
     "join": "Katıl",
     "nameIsRequired": "Bir isim girmeniz gerekli",
     "failedToJoinRoom": "Odaya katılırken bir sorun oluşturdu. Sonra tekrar deneyin."
+  },
+  "debateIntro": {
+    "debateIsStarting": "Tartışma başlıyor!",
+    "roundCount": "Bu tartışma konusu için AI'ın verdiği tur sayısı :",
+    "willBeStartedAfter": "Tartışma başlayacak "
   }
 }

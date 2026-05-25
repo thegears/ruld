@@ -34,5 +34,10 @@
     "join": "Join",
     "nameIsRequired": "Name is required",
     "failedToJoinRoom": "Failed to join room. Try again later."
+  },
+  "debateIntro": {
+    "debateIsStarting": "Debate is starting!",
+    "roundCount": "The number of rounds AI has given for this debate topic :",
+    "willBeStartedAfter": " Debate will be started after "
   }
 }

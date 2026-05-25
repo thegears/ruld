@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase/client";
 import { redirect } from "@/lib/i18n/routing";
 import { getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
+import { getRoundCount } from "./ai";
 
 const createRoomSchema = z.object({
   topic: z.string().min(1, "topicIsRequired"),
@@ -59,14 +60,22 @@ export async function joinRoom(_: unknown, formData: FormData) {
   const name = formData.get("name") as string;
   const userId = formData.get("userId") as string;
   const roomId = formData.get("roomId") as string;
+  const topic = formData.get("topic") as string;
 
   const parsed = joinRoomSchema.safeParse({ name });
 
   if (!parsed.success) return { error: parsed.error.errors[0].message };
 
+  const maxRounds = await getRoundCount(topic);
+
   const { error } = await supabase
     .from("rooms")
-    .update({ player_b_id: userId, player_b_name: name })
+    .update({
+      player_b_id: userId,
+      player_b_name: name,
+      status: "intro",
+      max_rounds: maxRounds,
+    })
     .eq("id", roomId)
     .select()
     .maybeSingle();
@@ -75,5 +84,14 @@ export async function joinRoom(_: unknown, formData: FormData) {
     return { error: "failedToJoinRoom" };
   }
 
-  return { success: true };
+  return { success: true, maxRounds };
+}
+
+export async function startDebate(roomId: string) {
+  await supabase
+    .from("rooms")
+    .update({ status: "debate" })
+    .eq("id", roomId)
+    .select()
+    .maybeSingle();
 }

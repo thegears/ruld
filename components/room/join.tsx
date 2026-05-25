@@ -19,19 +19,24 @@ export default function Join({
   roomId,
   topic,
   setPlayerB,
+  setMaxRounds,
 }: {
   playerAName: string;
   userId: string;
   roomId: string;
   topic: string;
-  setPlayerB: React.Dispatch<React.SetStateAction<string | null>>;
+  setPlayerB: (id: string) => void;
+  setMaxRounds: (maxRounds: number) => void;
 }) {
   const t = useTranslations("join");
   const [state, formAction, pending] = useActionState(joinRoom, null);
 
   useEffect(() => {
-    if (state?.success) setPlayerB(userId);
-  }, [state, userId, setPlayerB]);
+    if (state?.success) {
+      setPlayerB(userId);
+      setMaxRounds(state?.maxRounds);
+    }
+  }, [state, userId, setPlayerB, setMaxRounds]);
 
   return (
     <main className="min-h-screen   bg-[#0a0a0f] relative overflow-hidden  flex flex-col items-center justify-center gap-8 p-8">
@@ -58,6 +63,7 @@ export default function Join({
                 <form action={formAction} className="flex flex-col gap-4">
                   <input type="hidden" name="userId" value={userId} />
                   <input type="hidden" name="roomId" value={roomId} />
+                  <input type="hidden" name="topic" value={topic} />
 
                   <span className="text-sm sm:text-md font-semibold">
                     {t("whatIsYourName")}
