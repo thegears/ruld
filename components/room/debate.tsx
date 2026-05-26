@@ -6,6 +6,7 @@ import { useActionState, useEffect, useState } from "react";
 import { type Message } from "./main";
 import { supabase } from "@/lib/supabase/client";
 import { sendMessage, verdict } from "@/app/actions/room";
+import { useRef } from "react";
 
 export default function Debate({
   topic,
@@ -32,6 +33,84 @@ export default function Debate({
   const [messages, setMessages] = useState<Message[]>(() => {
     let array: Message[] = [];
 
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
+    if (playerSide == "A")
+      array.push({
+        side: "AI",
+        content: t("aiFirstMessageA"),
+        target: "A",
+      });
     if (playerSide == "A")
       array.push({
         side: "AI",
@@ -173,8 +252,14 @@ function Messages({
   messages: Message[];
   playerSide: "A" | "B";
 }) {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
-    <div className="flex-1 flex flex-col gap-4  justify-end p-16  overflow-auto">
+    <div className="flex-1 flex flex-col gap-4 p-16  overflow-auto">
       {messages
         .filter(
           (m) =>
@@ -188,6 +273,7 @@ function Messages({
         .map((m, i) => (
           <Message key={`message${i}`} content={m.content} side={m.side} />
         ))}
+      <div ref={messagesEndRef} />
     </div>
   );
 }
