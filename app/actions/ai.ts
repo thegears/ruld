@@ -105,13 +105,12 @@ export async function getAIResponse({
       )
       .join("\n") ?? "";
 
-  // 2-3 cümle kısıtlamasını kaldırıp, moderatörün tartışmayı canlandıracak derinlikte yazmasını sağladık
   const response = await makeRequest([
     {
       role: "system",
-      content: `You are Ruld AI, an engaging, insightful, and professional debate moderator. Topic: "${topic}".
+      content: `You are Ruld AI, an engaging, insightful, and professional debate moderator for the topic: "${topic}".
       Your job is to keep the debate dynamic, intellectual, and fluid. Respond in ${language} only using plain text.
-      Avoid short, robotic answers. Provide a well-constructed paragraph that bridges the arguments.`,
+      Keep your response moderate in length (between 2 to 4 sentences). Do not write long paragraphs or short robotic answers. Focus strictly on bridging the arguments and moving the debate forward.`,
     },
     {
       role: "user",
