@@ -50,5 +50,9 @@
     "you": "Siz",
     "aiFirstMessageA": " İlk argümanınızı sunun.",
     "aiFirstMessageB": "Rakibiniz bekleniyor..."
+  },
+  "verdict": {
+    "debateIsOver": "Tartışma sonlandı!",
+    "reason": "Ruld AI kazanan tarafı şu nedenle seçti :"
   }
 }

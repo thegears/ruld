@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import { type Message } from "./main";
 import { supabase } from "@/lib/supabase/client";
-import { sendMessage } from "@/app/actions/room";
+import { sendMessage, verdict } from "@/app/actions/room";
 
 export default function Debate({
   topic,
@@ -14,6 +14,7 @@ export default function Debate({
   InitialMessages,
   roomId,
   currentTurn,
+  setPageToVerdict,
 }: {
   topic: string;
   playerSide: "A" | "B";
@@ -21,10 +22,11 @@ export default function Debate({
   InitialMessages: Message[];
   roomId: string;
   currentTurn: "A" | "B";
+  setPageToVerdict: () => void;
 }) {
   const t = useTranslations("debate");
 
-  const [playerTurn, setPlayerTurn] = useState<"A" | "B">(currentTurn);
+  const [playerTurn, setPlayerTurn] = useState<"A" | "B" | "AI">(currentTurn);
   const isMyTurn = playerSide == playerTurn;
 
   const [messages, setMessages] = useState<Message[]>(() => {
@@ -59,16 +61,28 @@ export default function Debate({
           table: "messages",
           filter: `room_id=eq.${roomId}`,
         },
-        (payload) => {
-          setMessages((prev) => [...prev, payload.new as Message]);
+        async (payload) => {
+          setMessages((prev) => [...(prev || []), payload.new as Message]);
 
-          if (payload.new.side != "AI") {
-            if (payload.new.side == "A") {
-              setPlayerTurn("B");
-            } else {
+          if (payload.new.side == "AI") {
+            if (payload.new.target == "A") {
               setPlayerTurn("A");
+            } else {
+              setPlayerTurn("B");
             }
           }
+        },
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "verdicts",
+          filter: `room_id=eq.${roomId}`,
+        },
+        () => {
+          setPageToVerdict();
         },
       )
       .subscribe();
@@ -77,6 +91,18 @@ export default function Debate({
       supabase.removeChannel(channel);
     };
   }, [roomId]);
+
+  useEffect(() => {
+    (async () => {
+      if (
+        messages[messages.length - 1].side != "AI" &&
+        messages.filter((m) => m.side == "B").length == parseInt(maxRounds)
+      ) {
+        setPlayerTurn("AI");
+        if (playerSide == "B") await verdict(roomId);
+      }
+    })();
+  }, [messages]);
 
   return (
     <main className="h-screen   bg-[#0a0a0f] relative overflow-hidden  flex flex-col items-center justify-center gap-8 p-8">

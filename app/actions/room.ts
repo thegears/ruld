@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase/client";
 import { redirect } from "@/lib/i18n/routing";
 import { getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
-import { getAIResponse, getRoundCount } from "./ai";
+import { getAIResponse, getAIVerdict, getRoundCount } from "./ai";
 
 const createRoomSchema = z.object({
   topic: z.string().min(1, "topicIsRequired"),
@@ -115,7 +115,7 @@ export async function sendMessage(_: unknown, formData: FormData) {
 
   await supabase.from("messages").insert({ content, side, room_id: roomId });
 
-  const aiResponse = await getAIResponse({ topic, content });
+  const aiResponse = await getAIResponse({ topic, content, roomId });
 
   await supabase.from("messages").insert({
     content: aiResponse,
@@ -132,4 +132,27 @@ export async function sendMessage(_: unknown, formData: FormData) {
     .eq("id", roomId);
 
   return { success: true };
+}
+
+export async function verdict(roomId: string) {
+  const { reasoning } = await getAIVerdict(roomId);
+
+  const { error } = await supabase.from("verdicts").insert({
+    room_id: roomId,
+    reasoning,
+  });
+
+  await supabase.from("rooms").update({ status: "verdict" }).eq("id", roomId);
+
+  return { success: true };
+}
+
+export async function getVerdict(roomId: string) {
+  const { data } = await supabase
+    .from("verdicts")
+    .select("*")
+    .eq("room_id", roomId)
+    .single();
+
+  return { data };
 }

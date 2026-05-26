@@ -51,5 +51,9 @@
     "you": "You",
     "aiFirstMessageA": " Present your first argument.",
     "aiFirstMessageB": "Waiting for opponent..."
+  },
+  "verdict": {
+    "debateIsOver": "Debate is over!",
+    "reason": "Ruld AI decided winner case based on the following reason :"
   }
 }

@@ -8,6 +8,7 @@ import Join from "./join";
 import { notFound } from "next/navigation";
 import DebateIntro from "./debate-intro";
 import { startDebate } from "@/app/actions/room";
+import Verdict from "./verdict";
 
 export type Message = {
   id?: string;
@@ -33,15 +34,21 @@ export default function Main({
     player_b_id: string | null;
     player_b_name: string | null;
     topic: string;
-    status: "debate" | "intro";
+    status: "debate" | "intro" | "verdict";
     max_rounds: number;
     messages: Message[];
     current_turn: "A" | "B";
   };
 }) {
   const [playerB, setPlayerB] = useState(room.player_b_id);
-  const [debatePhase, setDebatePhase] = useState<"debate" | "intro">(
-    room.status != "debate" ? "intro" : room.status,
+  const [debatePhase, setDebatePhase] = useState<
+    "debate" | "intro" | "verdict"
+  >(
+    room.status === "verdict"
+      ? "verdict"
+      : room.status != "debate"
+        ? "intro"
+        : room.status,
   );
   const [maxRounds, setMaxRounds] = useState<string>(
     room.max_rounds ? `${room.max_rounds}` : "?",
@@ -106,7 +113,7 @@ export default function Main({
           roundCount={maxRounds!}
         />
       );
-    else
+    else if (debatePhase == "debate")
       return (
         <Debate
           topic={room.topic}
@@ -115,8 +122,11 @@ export default function Main({
           InitialMessages={room.messages}
           roomId={room.id}
           currentTurn={room.current_turn}
+          setPageToVerdict={() => setDebatePhase("verdict")}
         />
       );
+    else if (debatePhase == "verdict") return <Verdict roomId={room.id} />;
+    else notFound();
   }
 
   // Kullanıcı odanın bir parçası değilse, 404 sayfasını göster
