@@ -35,7 +35,7 @@ export default function Verdict({ roomId }: { roomId: string }) {
         <p className="text-sm md:text-sm text-muted-foreground max-w-sm text-center">
           {t("reason")}
         </p>
-        <div className="text-sm md:text-base text-muted-foreground max-w-sm md:max-w-lg text-center text-shadow-2xs text-shadow-purple-400 overflow-auto rounded-md p-4 bg-[#1a1a1f]/50 max-h-48">
+        <div className="text-sm md:text-base text-muted-foreground max-w-md md:max-w-2xl  text-center text-shadow-2xs text-shadow-purple-400 overflow-auto rounded-md p-4 bg-[#1a1a1f]/50 max-h-48">
           {room!.reasoning}
         </div>
       </div>
