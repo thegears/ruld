@@ -49,15 +49,17 @@ async function makeRequest(messages: GroqMessage[]) {
       }
 
       return await response.json();
-    } catch (error: any) {
-      console.error(`❌ [${model}] işlenirken hata oluştu:`, error.message);
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Bilinmeyen hata";
+      console.error(`❌ [${model}] işlenirken hata oluştu:`, errorMessage);
       lastError = error;
       continue;
     }
   }
 
   throw new Error(
-    `Groq üzerindeki tüm ücretsiz modeller tükendi. Son hata: ${lastError?.message}`,
+    `Groq üzerindeki tüm ücretsiz modeller tükendi. Son hata: ${lastError}`,
   );
 }
 

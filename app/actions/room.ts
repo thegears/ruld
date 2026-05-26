@@ -137,7 +137,7 @@ export async function sendMessage(_: unknown, formData: FormData) {
 export async function verdict(roomId: string) {
   const { reasoning } = await getAIVerdict(roomId);
 
-  const { error } = await supabase.from("verdicts").insert({
+  await supabase.from("verdicts").insert({
     room_id: roomId,
     reasoning,
   });

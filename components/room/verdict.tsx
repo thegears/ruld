@@ -13,8 +13,6 @@ export default function Verdict({ roomId }: { roomId: string }) {
     (async () => {
       const { data: verdict } = await getVerdict(roomId);
 
-      console.log(verdict);
-
       setRoom(verdict);
 
       setPending(false);
